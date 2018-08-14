@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--  About, appears as action button -->
+    <item
+        android:id="@+id/action_connect"
+        android:title="@string/connection_status1"
+        app:showAsAction="always"
+        android:visible="true"
+        android:checkable="false" />
+    <group >
+        <item android:title="DIM 0%"
+            android:id="@+id/action_driver_1"
+            android:checkable="false"/>
+        <item android:title="DIM 50%"
+            android:id="@+id/action_driver_2"
+            android:checkable="false"/>
+
+        <item android:title="DIM 75%"
+            android:id="@+id/action_driver_3"
+            android:checkable="false"/>
+
+    </group>
+
+    <!-- Colours, should always be in the overflow -->
+    <item
+        android:id="@+id/action_black"
+        android:title="@string/black"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_blue"
+        android:title="Blue"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_cyan"
+        android:title="@string/cyan"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_green"
+        android:title="Green"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_magenta"
+        android:title="@string/magenta"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_red"
+        android:title="Red"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_yellow"
+        android:title="@string/yellow"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_white"
+        android:title="@string/white"
+        app:showAsAction="never" ></item>
+    <item
+        android:id="@+id/action_about"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="@string/action_about"
+        app:showAsAction="ifRoom"
+        android:visible="true"
+        android:checkable="true"
+        android:enabled="true" />
+</menu>
