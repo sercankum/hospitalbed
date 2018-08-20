@@ -9,8 +9,10 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
 import android.os.Handler;
+
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -132,7 +134,7 @@ public class DeviceScanActivity extends ListActivity {
         final Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(MainActivity.EXTRAS_DEVICE_NAME, device.getName());
         intent.putExtra(MainActivity.EXTRAS_DEVICE_ADDRESS, device.getAddress());
-        Toast.makeText(getApplicationContext(),"Connected to"+ device.getName(),Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Connected to" + device.getName(), Toast.LENGTH_LONG).show();
         if (mScanning) {
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
             mScanning = false;
@@ -173,7 +175,7 @@ public class DeviceScanActivity extends ListActivity {
         }
 
         public void addDevice(BluetoothDevice device) {
-            if(!mLeDevices.contains(device)) {
+            if (!mLeDevices.contains(device)) {
                 mLeDevices.add(device);
             }
         }
@@ -247,4 +249,5 @@ public class DeviceScanActivity extends ListActivity {
         TextView deviceName;
         TextView deviceAddress;
     }
+
 }
