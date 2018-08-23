@@ -56,13 +56,12 @@ public class DeviceScanActivity extends ListActivity {
         if (mBluetoothAdapter == null) {
             Toast.makeText(this, R.string.error_bluetooth_not_supported, Toast.LENGTH_SHORT).show();
             finish();
-            return;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.ble_menu, menu);
+        getMenuInflater().inflate(R.menu.blemenu, menu);
         if (!mScanning) {
             menu.findItem(R.id.menu_stop).setVisible(false);
             menu.findItem(R.id.menu_scan).setVisible(true);
@@ -167,9 +166,9 @@ public class DeviceScanActivity extends ListActivity {
         private ArrayList<BluetoothDevice> mLeDevices;
         private LayoutInflater mInflator;
 
-        public LeDeviceListAdapter() {
+        private LeDeviceListAdapter() {
             super();
-            mLeDevices = new ArrayList<BluetoothDevice>();
+            mLeDevices = new ArrayList<>();
             mInflator = DeviceScanActivity.this.getLayoutInflater();
         }
 
@@ -179,11 +178,11 @@ public class DeviceScanActivity extends ListActivity {
             }
         }
 
-        public BluetoothDevice getDevice(int position) {
+        private BluetoothDevice getDevice(int position) {
             return mLeDevices.get(position);
         }
 
-        public void clear() {
+        private void clear() {
             mLeDevices.clear();
         }
 
@@ -207,10 +206,10 @@ public class DeviceScanActivity extends ListActivity {
             ViewHolder viewHolder;
             // General ListView optimization code.
             if (view == null) {
-                view = mInflator.inflate(R.layout.activity_ble, null);
+                view = mInflator.inflate(R.layout.list, null);
                 viewHolder = new ViewHolder();
-                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
-                viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
+                viewHolder.deviceAddress =  view.findViewById(R.id.device_address);
+                viewHolder.deviceName =  view.findViewById(R.id.device_name);
                 view.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) view.getTag();
