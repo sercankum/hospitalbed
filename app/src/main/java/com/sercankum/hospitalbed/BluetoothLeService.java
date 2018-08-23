@@ -338,7 +338,7 @@ public class BluetoothLeService extends Service {
         /*get the read characteristic from the service*/
         BluetoothGattCharacteristic mWriteCharacteristic = mCustomService.getCharacteristic( UUID.fromString("6e400002-b5a3-f393-e0a9-e50e24dcca9e"));
         if (mWriteCharacteristic == null) {
-            Log.d(TAG, "Failed to get characteristic");
+            //Log.d(TAG, "Failed to get characteristic");
         }
 
         byte[] valueByte = new byte[2];
@@ -346,16 +346,16 @@ public class BluetoothLeService extends Service {
         valueByte[1] = driver_type;
 
 
-        Toast.makeText(getApplicationContext(), "" + valueByte, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "" + valueByte, Toast.LENGTH_LONG).show();
 
         mWriteCharacteristic.setValue(valueByte);
 
         if (!mBluetoothGatt.writeCharacteristic(mWriteCharacteristic)) {
             Log.d(TAG, "Failed to write characteristic");
-            Toast.makeText(getApplicationContext(), "Failed to write Characteristic", Toast.LENGTH_SHORT).show();
+         //   Toast.makeText(getApplicationContext(), "Failed to write Characteristic", Toast.LENGTH_SHORT).show();
         } else {
             Log.d(TAG, "Write characteristic succeeded");
-           Toast.makeText(getApplicationContext(), "Write Characteristic Successful!", Toast.LENGTH_SHORT).show();
+          // Toast.makeText(getApplicationContext(), "Write Characteristic Successful!", Toast.LENGTH_SHORT).show();
         }
 
     }
