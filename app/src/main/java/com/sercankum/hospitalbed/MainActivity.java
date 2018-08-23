@@ -35,19 +35,16 @@ import java.util.Observer;
 
 
 /**
- * The Controller for RGBAModel.
+ * The Controller for Hospital Bed.
  * <p>
  * As the Controller:
  * a) event handler for the View
  * b) observer of the Model (RGBAModel)
  * <p>
- * Features the Update / React Strategy.
- *
  * @author Sercan Kum
  * @version 1.0
  */
-public class MainActivity extends AppCompatActivity implements Observer
-        , SeekBar.OnSeekBarChangeListener {
+public class MainActivity extends AppCompatActivity implements Observer {
 
 
     // CLASS VARIABLES
@@ -56,6 +53,26 @@ public class MainActivity extends AppCompatActivity implements Observer
     private static final String ABOUT_DIALOG_TAG = "About";
     private static final String LOG_TAG = "RGBA";
     private static byte driver_type = 0X0A;
+    private static byte A = 0X41;
+    private static byte B = 0X42;
+    private static byte C = 0X43;
+    private static byte D = 0X44;
+    private static byte E = 0X45;
+    private static byte F = 0X46;
+    private static byte G = 0X47;
+    private static byte H = 0X48;
+    private static byte I = 0X49;
+    private static byte J = 0X4A;
+    private static byte K = 0X4B;
+    private static byte s0 = 0X30;
+    private static byte s1 = 0X31;
+    private static byte s2 = 0X32;
+    private static byte s3 = 0X33;
+    private static byte s4 = 0X34;
+    private static byte s5 = 0X35;
+    private static byte s6 = 0X36;
+
+
 
     // INSTANCE VARIABLES
     // Pro-tip: different naming style; the 'm' means 'member'
@@ -175,9 +192,6 @@ public class MainActivity extends AppCompatActivity implements Observer
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
 
 
-
-
-
         SharedPreferences settings = getSharedPreferences(getResources().getString(R.string.app_name), Context.MODE_PRIVATE);
 
         // reference each View
@@ -185,21 +199,39 @@ public class MainActivity extends AppCompatActivity implements Observer
 
 
         //All Buttons
-        headUp =  findViewById(R.id.headup);
-        headDown =  findViewById(R.id.headown);
-        legUp =  findViewById(R.id.legup);
-        legDown =  findViewById(R.id.legdown);
-        bedUp =  findViewById(R.id.bedup);
-        bedDown =  findViewById(R.id.beddown);
-        openDoor =  findViewById(R.id.opendoor);
+        headUp = findViewById(R.id.headup);
+        headDown = findViewById(R.id.headown);
+        legUp = findViewById(R.id.legup);
+        legDown = findViewById(R.id.legdown);
+        bedUp = findViewById(R.id.bedup);
+        bedDown = findViewById(R.id.beddown);
+        openDoor = findViewById(R.id.opendoor);
 
-
-
+        mLightSB.setProgress(0);
         // register the event handler for each <SeekBar>
-        mLightSB.setOnSeekBarChangeListener(this);
+        mLightSB.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            int progress = 0;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
+                progress = progresValue;
+                Toast.makeText(getApplicationContext(), "Changing seekbar's progress", Toast.LENGTH_SHORT).show();
+                getProgress(progresValue);
 
+            }
 
-        }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                Toast.makeText(getApplicationContext(), "Started tracking seekbar", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                getProgress(progress);
+                Toast.makeText(getApplicationContext(), "Stopped tracking seekbar", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -224,35 +256,51 @@ public class MainActivity extends AppCompatActivity implements Observer
 
 
 
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-
-        // Determine which <SeekBark> caused the event (switch + case)
-        // GET the SeekBar's progress, and SET the model to it's new value
-
-        switch (seekBar.getId()) {
-            case R.id.mLightSB:
-                Toast.makeText(getApplicationContext(),progress,Toast.LENGTH_SHORT).show();
-                break;
+    public boolean getProgress(int progress){
+        switch (progress){
+            case 0:
+                sendToBluetooth(A,driver_type);
+                return true;
+            case 1:
+                sendToBluetooth(B,driver_type);
+                return true;
+            case 2:
+                sendToBluetooth(C,driver_type);
+                return true;
+            case 3:
+                sendToBluetooth(D,driver_type);
+                return true;
+            case 4:
+                sendToBluetooth(E,driver_type);
+                return true;
+            case 5:
+                sendToBluetooth(F,driver_type);
+                return true;
+            case 6:
+                sendToBluetooth(G,driver_type);
+                return true;
+            case 7:
+                sendToBluetooth(H,driver_type);
+                return true;
+            case 8:
+                sendToBluetooth(I,driver_type);
+                return true;
+            case 9:
+                sendToBluetooth(J,driver_type);
+                return true;
+            case 10:
+                sendToBluetooth(K,driver_type);
+                return true;
         }
-    }
 
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        // No-Operation
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
+        return true;
     }
 
     //OnClick for Preset Buttons
     public void onheadup(View view) {
       //  Toast.makeText(getApplicationContext(), "HEAD SHOULD GO UP", Toast.LENGTH_SHORT).show();
         final byte sendcommand = 0X31;
-        final byte endcommand = 0x30;
+        final byte endcommand = s0;
 
         headUp.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -271,12 +319,10 @@ public class MainActivity extends AppCompatActivity implements Observer
             }
         });
     }
-
-
     public void onheaddown(View view) {
       //  Toast.makeText(getApplicationContext(), "HEAD SHOULD GO DOWN", Toast.LENGTH_SHORT).show();
         final byte sendcommand = 0X32;
-        final byte endcommand = 0x30;
+        final byte endcommand = s0;
 
         headDown.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -295,7 +341,6 @@ public class MainActivity extends AppCompatActivity implements Observer
             }
         });
     }
-
     public void onlegup(View view) {
 
       //  Toast.makeText(getApplicationContext(), "LEG SHOULD GO UP", Toast.LENGTH_SHORT).show();
@@ -363,7 +408,6 @@ public class MainActivity extends AppCompatActivity implements Observer
             }
         });
     }
-
     public void onbeddown( View view ){
         final byte sendcommand = 0X36;
         final byte endcommand = 0x30;
@@ -389,25 +433,15 @@ public class MainActivity extends AppCompatActivity implements Observer
         byte command = 0X4C;
         sendToBluetooth(command, driver_type);
     }
-
-
-    // The Model has changed state!
-    // Refresh the View to display the current values of the Model.
     @Override
     public void update(Observable observable, Object data) {
 
     }
-
-
     private void sendToBluetooth(byte  command, byte driver_type) {
         if(mBluetoothLeService != null) {
             mBluetoothLeService.writeCustomCharacteristic(command,driver_type);
         }
     }
-
-
-
-
     private static IntentFilter makeGattUpdateIntentFilter() {
         final IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(BluetoothLeService.ACTION_GATT_CONNECTED);
@@ -416,8 +450,6 @@ public class MainActivity extends AppCompatActivity implements Observer
         intentFilter.addAction(BluetoothLeService.ACTION_DATA_AVAILABLE);
         return intentFilter;
     }
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -440,7 +472,6 @@ public class MainActivity extends AppCompatActivity implements Observer
         super.onPause();
         unregisterReceiver(mGattUpdateReceiver);
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -448,4 +479,5 @@ public class MainActivity extends AppCompatActivity implements Observer
         mBluetoothLeService = null;
     }
 
-}
+
+    }
